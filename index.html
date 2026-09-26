@@ -1,0 +1,1696 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weather and Climate | Advait Ganesh Narkhede</title>
+
+<meta name="description"
+content="Learn about weather and climate and see live weather conditions for the capitals of all 28 states of India.">
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #222;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+    background: rgba(0, 0, 0, 0.78);
+    padding: 18px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    backdrop-filter: blur(8px);
+}
+
+nav .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #00f2fe;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 450px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+
+    padding: 40px 20px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 22px;
+}
+
+.button {
+    display: inline-block;
+
+    margin-top: 25px;
+    padding: 12px 25px;
+
+    background: white;
+    color: #1689e8;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1250px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.section-title {
+    text-align: center;
+
+    font-size: 38px;
+
+    margin-bottom: 30px;
+
+    color: #123;
+}
+
+
+/* =========================
+   NORMAL CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+    margin-bottom: 60px;
+}
+
+.card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 14px 30px rgba(0,0,0,0.20);
+}
+
+.card h3 {
+    color: #1689e8;
+
+    margin-bottom: 15px;
+
+    font-size: 24px;
+}
+
+
+/* =========================
+   INFORMATION
+========================= */
+
+.info {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.15);
+}
+
+
+/* ==================================================
+   PROFESSIONAL LIVE WEATHER SECTION
+================================================== */
+
+.live-section {
+    margin-top: 70px;
+}
+
+.live-heading {
+    text-align: center;
+
+    color: white;
+
+    margin-bottom: 30px;
+}
+
+.live-heading h2 {
+    font-size: 42px;
+
+    margin-bottom: 8px;
+
+    text-shadow:
+        0 3px 12px rgba(0,0,0,0.2);
+}
+
+.live-heading p {
+    font-size: 17px;
+}
+
+
+/* =========================
+   DASHBOARD HEADER
+========================= */
+
+.weather-dashboard {
+    background: rgba(255,255,255,0.94);
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    margin-bottom: 28px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.18);
+}
+
+.dashboard-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.live-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: bold;
+}
+
+.live-dot {
+    width: 12px;
+    height: 12px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+    box-shadow:
+        0 0 12px rgba(34,197,94,0.8);
+}
+
+.update-text {
+    color: #666;
+
+    font-size: 14px;
+
+    margin-top: 4px;
+}
+
+.refresh-button {
+    border: none;
+
+    background: #1689e8;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.refresh-button:hover {
+    background: #0d72c7;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   STATE GRID
+========================= */
+
+.state-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+
+/* =========================
+   STATE CARD
+========================= */
+
+.state-card {
+    position: relative;
+
+    overflow: hidden;
+
+    background: rgba(255,255,255,0.97);
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,0.15);
+
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.state-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1689e8,
+            #00c6ff
+        );
+}
+
+.state-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 18px 35px rgba(0,0,0,0.22);
+}
+
+.state-name {
+    font-size: 22px;
+
+    color: #123;
+
+    font-weight: bold;
+}
+
+.capital {
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   MAIN WEATHER
+========================= */
+
+.main-weather {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.weather-icon {
+    font-size: 58px;
+}
+
+.temperature {
+    font-size: 50px;
+
+    line-height: 1;
+
+    font-weight: bold;
+
+    color: #1689e8;
+}
+
+.condition {
+    color: #444;
+
+    font-size: 16px;
+
+    margin-top: 7px;
+
+    font-weight: bold;
+}
+
+.feels {
+    color: #666;
+
+    font-size: 14px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   WEATHER INFORMATION
+========================= */
+
+.weather-info {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.weather-item {
+    background: #f4f9fd;
+
+    border-radius: 13px;
+
+    padding: 12px;
+}
+
+.weather-item span {
+    display: block;
+
+    color: #777;
+
+    font-size: 12px;
+
+    margin-bottom: 2px;
+}
+
+.weather-item strong {
+    font-size: 15px;
+
+    color: #222;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    text-align: center;
+
+    padding: 35px 10px;
+
+    color: #777;
+}
+
+.loading-icon {
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+    color: #c62828;
+
+    background: #fff1f1;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: rgba(0,0,0,0.8);
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+
+    margin-top: 50px;
+}
+
+footer i {
+    color: #00f2fe;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .state-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-top {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    nav {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 8px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .state-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .live-heading h2 {
+        font-size: 32px;
+    }
+
+    .temperature {
+        font-size: 42px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav>
+
+    <div class="logo">
+        🌤️ Weather & Climate
+    </div>
+
+    <div>
+
+        <a href="#weather">
+            Weather
+        </a>
+
+        <a href="#temperature">
+            Temperature
+        </a>
+
+        <a href="#climate">
+            Climate
+        </a>
+
+        <a href="#india-states">
+            India
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+        Weather and Climate
+    </h1>
+
+    <p>
+        Understanding the world around us
+    </p>
+
+    <a href="#weather" class="button">
+        Explore
+    </a>
+
+</section>
+
+
+<main>
+
+
+<!-- =========================
+     WEATHER
+========================= -->
+
+<section id="weather">
+
+    <h2 class="section-title">
+        Weather
+    </h2>
+
+    <div class="info">
+
+        <p>
+
+            Weather provides information on various parameters like
+            temperature, humidity, clouds, rainfall, snow or storms,
+            and time of sunset, etc. with reference to a region.
+
+        </p>
+
+        <br>
+
+        <p>
+
+            Weather may change from day to day and even hour to hour.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     WEATHER CARDS
+========================= -->
+
+<div class="cards">
+
+
+    <div class="card" id="temperature">
+
+        <h3>
+            🌡️ Temperature
+        </h3>
+
+        <p>
+
+            The maximum temperature of the day at a given place
+            normally occurs in the afternoon because the Sun's rays
+            heat the Earth's surface for several hours.
+
+        </p>
+
+        <br>
+
+        <p>
+
+            At night, the Sun's rays do not fall on that place,
+            so it cools down. The minimum temperature usually
+            occurs in the early morning.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            💧 Humidity
+        </h3>
+
+        <p>
+
+            Humidity is the amount of water vapour present in the air.
+            It is commonly expressed as relative humidity in percent.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            🌧️ Rainfall
+        </h3>
+
+        <p>
+
+            Rainfall is measured using a
+            <b>rain gauge</b>.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     CLIMATE
+========================= -->
+
+<section id="climate">
+
+    <h2 class="section-title">
+        Climate
+    </h2>
+
+    <div class="info">
+
+        <p>
+
+            The weather pattern of a place can be seen from the
+            weather records of the past several years. The average
+            weather pattern of a place over a long period of time,
+            say 25 years, is called the climate of that place.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CLIMATE CARDS
+========================= -->
+
+<div class="cards">
+
+
+    <div class="card">
+
+        <h3>
+            🌡️ Average Temperature
+        </h3>
+
+        <p>
+
+            Climate describes the usual temperature conditions of
+            a place over a long period of time.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            🌧️ Rainfall
+        </h3>
+
+        <p>
+
+            The amount and pattern of rainfall over many years
+            are important parts of a place's climate.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            🌬️ Winds
+        </h3>
+
+        <p>
+
+            The direction and pattern of winds over a long period
+            also help describe the climate of a place.
+
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            🍂 Seasons
+        </h3>
+
+        <p>
+
+            Climate influences the seasons experienced in a region.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- ==================================================
+     LIVE WEATHER ACROSS INDIA
+================================================== -->
+
+<section id="india-states" class="live-section">
+
+
+    <div class="live-heading">
+
+        <h2>
+            🇮🇳 Live Weather Across India
+        </h2>
+
+        <p>
+            Current weather conditions for the capitals of all 28 states
+        </p>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="weather-dashboard">
+
+        <div class="dashboard-top">
+
+
+            <div>
+
+                <div class="live-status">
+
+                    <span class="live-dot"></span>
+
+                    LIVE WEATHER
+
+                </div>
+
+
+                <div
+                    class="update-text"
+                    id="lastUpdated"
+                >
+
+                    Loading weather data...
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="refresh-button"
+                onclick="updateWeather()"
+            >
+
+                🔄 Refresh Now
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- STATE CARDS -->
+
+    <div
+        class="state-grid"
+        id="stateGrid"
+    ></div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <p>
+        This web page has been created by
+    </p>
+
+    <p>
+        <i>
+            Advait Ganesh Narkhede
+        </i>
+    </p>
+
+</footer>
+
+
+<script>
+
+
+/* ==================================================
+   28 INDIAN STATES
+================================================== */
+
+const states = [
+
+    {
+        name: "Andhra Pradesh",
+        capital: "Amaravati",
+        lat: 16.5131,
+        lon: 80.5165
+    },
+
+    {
+        name: "Arunachal Pradesh",
+        capital: "Itanagar",
+        lat: 27.0844,
+        lon: 93.6053
+    },
+
+    {
+        name: "Assam",
+        capital: "Dispur",
+        lat: 26.1433,
+        lon: 91.7898
+    },
+
+    {
+        name: "Bihar",
+        capital: "Patna",
+        lat: 25.5941,
+        lon: 85.1376
+    },
+
+    {
+        name: "Chhattisgarh",
+        capital: "Raipur",
+        lat: 21.2514,
+        lon: 81.6296
+    },
+
+    {
+        name: "Goa",
+        capital: "Panaji",
+        lat: 15.4909,
+        lon: 73.8278
+    },
+
+    {
+        name: "Gujarat",
+        capital: "Gandhinagar",
+        lat: 23.2156,
+        lon: 72.6369
+    },
+
+    {
+        name: "Haryana",
+        capital: "Chandigarh",
+        lat: 30.7333,
+        lon: 76.7794
+    },
+
+    {
+        name: "Himachal Pradesh",
+        capital: "Shimla",
+        lat: 31.1048,
+        lon: 77.1734
+    },
+
+    {
+        name: "Jharkhand",
+        capital: "Ranchi",
+        lat: 23.3441,
+        lon: 85.3096
+    },
+
+    {
+        name: "Karnataka",
+        capital: "Bengaluru",
+        lat: 12.9716,
+        lon: 77.5946
+    },
+
+    {
+        name: "Kerala",
+        capital: "Thiruvananthapuram",
+        lat: 8.5241,
+        lon: 76.9366
+    },
+
+    {
+        name: "Madhya Pradesh",
+        capital: "Bhopal",
+        lat: 23.2599,
+        lon: 77.4126
+    },
+
+    {
+        name: "Maharashtra",
+        capital: "Mumbai",
+        lat: 19.0760,
+        lon: 72.8777
+    },
+
+    {
+        name: "Manipur",
+        capital: "Imphal",
+        lat: 24.8170,
+        lon: 93.9368
+    },
+
+    {
+        name: "Meghalaya",
+        capital: "Shillong",
+        lat: 25.5788,
+        lon: 91.8933
+    },
+
+    {
+        name: "Mizoram",
+        capital: "Aizawl",
+        lat: 23.7271,
+        lon: 92.7176
+    },
+
+    {
+        name: "Nagaland",
+        capital: "Kohima",
+        lat: 25.6751,
+        lon: 94.1086
+    },
+
+    {
+        name: "Odisha",
+        capital: "Bhubaneswar",
+        lat: 20.2961,
+        lon: 85.8245
+    },
+
+    {
+        name: "Punjab",
+        capital: "Chandigarh",
+        lat: 30.7333,
+        lon: 76.7794
+    },
+
+    {
+        name: "Rajasthan",
+        capital: "Jaipur",
+        lat: 26.9124,
+        lon: 75.7873
+    },
+
+    {
+        name: "Sikkim",
+        capital: "Gangtok",
+        lat: 27.3389,
+        lon: 88.6065
+    },
+
+    {
+        name: "Tamil Nadu",
+        capital: "Chennai",
+        lat: 13.0827,
+        lon: 80.2707
+    },
+
+    {
+        name: "Telangana",
+        capital: "Hyderabad",
+        lat: 17.3850,
+        lon: 78.4867
+    },
+
+    {
+        name: "Tripura",
+        capital: "Agartala",
+        lat: 23.8315,
+        lon: 91.2868
+    },
+
+    {
+        name: "Uttar Pradesh",
+        capital: "Lucknow",
+        lat: 26.8467,
+        lon: 80.9462
+    },
+
+    {
+        name: "Uttarakhand",
+        capital: "Dehradun",
+        lat: 30.3165,
+        lon: 78.0322
+    },
+
+    {
+        name: "West Bengal",
+        capital: "Kolkata",
+        lat: 22.5726,
+        lon: 88.3639
+    }
+
+];
+
+
+/* ==================================================
+   WEATHER CODES
+================================================== */
+
+function getWeatherInfo(code) {
+
+    const weather = {
+
+        0: ["☀️", "Clear sky"],
+
+        1: ["🌤️", "Mainly clear"],
+
+        2: ["⛅", "Partly cloudy"],
+
+        3: ["☁️", "Overcast"],
+
+        45: ["🌫️", "Fog"],
+
+        48: ["🌫️", "Fog"],
+
+        51: ["🌦️", "Light drizzle"],
+
+        53: ["🌦️", "Drizzle"],
+
+        55: ["🌧️", "Heavy drizzle"],
+
+        56: ["🌧️", "Freezing drizzle"],
+
+        57: ["🌧️", "Heavy freezing drizzle"],
+
+        61: ["🌦️", "Light rain"],
+
+        63: ["🌧️", "Rain"],
+
+        65: ["🌧️", "Heavy rain"],
+
+        66: ["🌧️", "Freezing rain"],
+
+        67: ["🌧️", "Heavy freezing rain"],
+
+        71: ["🌨️", "Light snow"],
+
+        73: ["❄️", "Snow"],
+
+        75: ["❄️", "Heavy snow"],
+
+        77: ["🌨️", "Snow grains"],
+
+        80: ["🌦️", "Light showers"],
+
+        81: ["🌧️", "Showers"],
+
+        82: ["⛈️", "Heavy showers"],
+
+        85: ["🌨️", "Snow showers"],
+
+        86: ["🌨️", "Heavy snow showers"],
+
+        95: ["⛈️", "Thunderstorm"],
+
+        96: ["⛈️", "Thunderstorm with hail"],
+
+        99: ["⛈️", "Thunderstorm with hail"]
+
+    };
+
+    return weather[code] || ["🌤️", "Unknown"];
+
+}
+
+
+/* ==================================================
+   CREATE STATE CARDS
+================================================== */
+
+function createCards() {
+
+    const grid =
+        document.getElementById("stateGrid");
+
+    grid.innerHTML = "";
+
+
+    states.forEach((state, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "state-card";
+
+        card.id =
+            "state-" + index;
+
+
+        card.innerHTML = `
+
+            <div class="state-name">
+
+                ${state.name}
+
+            </div>
+
+
+            <div class="capital">
+
+                📍 ${state.capital}
+
+            </div>
+
+
+            <div class="loading">
+
+                <div class="loading-icon">
+                    🌤️
+                </div>
+
+                Loading live weather...
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* ==================================================
+   UPDATE WEATHER
+   ONE REQUEST FOR ALL 28 STATES
+================================================== */
+
+async function updateWeather() {
+
+    const updateText =
+        document.getElementById("lastUpdated");
+
+
+    updateText.textContent =
+        "Updating live weather...";
+
+
+    try {
+
+
+        /* ------------------------------------------
+           CREATE ONE LATITUDE LIST
+        ------------------------------------------ */
+
+        const latitudes =
+            states
+                .map(state => state.lat)
+                .join(",");
+
+
+        /* ------------------------------------------
+           CREATE ONE LONGITUDE LIST
+        ------------------------------------------ */
+
+        const longitudes =
+            states
+                .map(state => state.lon)
+                .join(",");
+
+
+        /* ------------------------------------------
+           ONE OPEN-METEO REQUEST
+        ------------------------------------------ */
+
+        const url =
+
+            `https://api.open-meteo.com/v1/forecast` +
+
+            `?latitude=${latitudes}` +
+
+            `&longitude=${longitudes}` +
+
+            `&current=` +
+
+            `temperature_2m,` +
+
+            `relative_humidity_2m,` +
+
+            `apparent_temperature,` +
+
+            `precipitation,` +
+
+            `weather_code,` +
+
+            `wind_speed_10m,` +
+
+            `wind_direction_10m,` +
+
+            `wind_gusts_10m` +
+
+            `&temperature_unit=celsius` +
+
+            `&wind_speed_unit=kmh` +
+
+            `&precipitation_unit=mm` +
+
+            `&timezone=auto`;
+
+
+        /* ------------------------------------------
+           FETCH
+        ------------------------------------------ */
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Weather request failed"
+            );
+
+        }
+
+
+        /* ------------------------------------------
+           READ RESPONSE
+        ------------------------------------------ */
+
+        const weatherData =
+            await response.json();
+
+
+        /* ------------------------------------------
+           UPDATE ALL 28 CARDS
+        ------------------------------------------ */
+
+        states.forEach((state, index) => {
+
+
+            const card =
+                document.getElementById(
+                    "state-" + index
+                );
+
+
+            const current =
+                weatherData[index].current;
+
+
+            const weatherInfo =
+                getWeatherInfo(
+                    current.weather_code
+                );
+
+
+            card.innerHTML = `
+
+                <div class="state-name">
+
+                    ${state.name}
+
+                </div>
+
+
+                <div class="capital">
+
+                    📍 ${state.capital}
+
+                </div>
+
+
+                <div class="main-weather">
+
+
+                    <div>
+
+                        <div class="temperature">
+
+                            ${Math.round(
+                                current.temperature_2m
+                            )}°
+
+                        </div>
+
+
+                        <div class="feels">
+
+                            Feels like
+
+                            ${Math.round(
+                                current.apparent_temperature
+                            )}°C
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="weather-icon">
+
+                        ${weatherInfo[0]}
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="condition">
+
+                    ${weatherInfo[1]}
+
+                </div>
+
+
+                <div class="weather-info">
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            💧 Humidity
+                        </span>
+
+                        <strong>
+
+                            ${current.relative_humidity_2m}%
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            💨 Wind
+                        </span>
+
+                        <strong>
+
+                            ${Math.round(
+                                current.wind_speed_10m
+                            )} km/h
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            🧭 Direction
+                        </span>
+
+                        <strong>
+
+                            ${Math.round(
+                                current.wind_direction_10m
+                            )}°
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            🌧️ Rain
+                        </span>
+
+                        <strong>
+
+                            ${current.precipitation} mm
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            💨 Wind gusts
+                        </span>
+
+                        <strong>
+
+                            ${Math.round(
+                                current.wind_gusts_10m
+                            )} km/h
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        <span>
+                            🕐 Updated
+                        </span>
+
+                        <strong>
+
+                            ${current.time.substring(
+                                11,
+                                16
+                            )}
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        });
+
+
+        /* ------------------------------------------
+           UPDATE TIME
+        ------------------------------------------ */
+
+        const now =
+            new Date();
+
+
+        updateText.textContent =
+            "Last updated: " +
+            now.toLocaleString();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Weather error:",
+            error
+        );
+
+
+        updateText.textContent =
+            "Unable to update weather data.";
+
+
+        states.forEach(
+            (state, index) => {
+
+                const card =
+                    document.getElementById(
+                        "state-" + index
+                    );
+
+
+                card.innerHTML = `
+
+                    <div class="state-name">
+
+                        ${state.name}
+
+                    </div>
+
+
+                    <div class="capital">
+
+                        📍 ${state.capital}
+
+                    </div>
+
+
+                    <div class="error">
+
+                        ⚠️ Weather data could not
+                        be loaded.
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+createCards();
+
+
+/*
+   ONE REQUEST FOR ALL 28 STATES
+*/
+
+updateWeather();
+
+
+/*
+   AUTOMATIC UPDATE EVERY 10 MINUTES
+*/
+
+setInterval(
+    updateWeather,
+    10 * 60 * 1000
+);
+
+</script>
+
+
+</body>
+
+</html>
+```
